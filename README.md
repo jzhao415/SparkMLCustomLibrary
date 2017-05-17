@@ -34,7 +34,8 @@ val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name).getAndApply
 
 4. in zeppelin
 ```scala
-PrepareDataFromS3("S3_file_name).zeppelinChart()
+val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name)
+prepareData.zeppelinChart()
 ```
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart1.PNG)
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart2.PNG)
