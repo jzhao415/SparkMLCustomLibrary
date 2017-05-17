@@ -8,7 +8,7 @@ The purpuse of this code is to demo:
 4. function to show visualization/chart in zeppelin 
 5. combine with spark ml pipeline (TBD)
 
-end user should able to do:
+End user should able to do:
 
 1. quick retrieve a csv file with file name, using default s3 bucket in code
 ```scala
