@@ -1,7 +1,7 @@
 # SparkMLCustomLibrary
-This is a demo library for Spark ML purpose
+This is a demo library for Spark ML related project
 
-The purpose of this code is to demo:
+The purpose of this library is to demostrate:
 1. retrieve a csv file from S3
 2. create metadata along with data file,
 3. transfer into DataFrame,
@@ -34,7 +34,8 @@ val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name).getAndApply
 
 4. in zeppelin
 ```scala
-PrepareDataFromS3("S3_file_name).zeppelinChart()
+val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name)
+prepareData.zeppelinChart()
 ```
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart1.PNG)
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart2.PNG)
