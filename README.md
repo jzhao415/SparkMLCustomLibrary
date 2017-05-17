@@ -39,3 +39,6 @@ prepareData.zeppelinChart()
 ```
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart1.PNG)
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart2.PNG)
+
+5. in DataBricks
+![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_databricks_demo.PNG)
