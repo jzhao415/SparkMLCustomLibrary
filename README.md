@@ -1,7 +1,7 @@
 # SparkMLCustomLibrary
-This is a demo library for Spark ML purpose
+This is a demo library for Spark ML related project
 
-The purpose of this code is to demo:
+The purpose of this library is to demostrate:
 1. retrieve a csv file from S3
 2. create metadata along with data file,
 3. transfer into DataFrame,
