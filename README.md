@@ -1,14 +1,21 @@
 # SparkMLCustomLibrary
 This is a demo library for Spark ML purpose
 
-The purpuse of this code is to demo:
+The purpose of this code is to demo:
 1. retrieve a csv file from S3
 2. create metadata along with data file,
 3. transfer into DataFrame,
 4. function to show visualization/chart in zeppelin 
 5. combine with spark ml pipeline (TBD)
 
-End user should able to do:
+Compete Test cases are under /src/test
+
+Build Instruction:
+```
+mvn clean install
+```
+
+Usage: 
 
 1. quick retrieve a csv file with file name, using default s3 bucket in code
 ```scala
