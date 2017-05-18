@@ -41,7 +41,7 @@ object CustomLibrary{
   }
 
   object Util{
-    def getS3file(bucket: String, fileName: String, header: Boolean = true, inferSchema: Boolean = true):DataFrame= spark.read.option("header", header).option("inferSchema", inferSchema).csv("s3n://AKIAIXXDOWTSCPHVXYCA:IGiG3g0VW5Ccw8cY4Axs5yZhWKGp2VlkwrhQMilT@"+bucket+"/"+fileName)
+    def getS3file(bucket: String, fileName: String, header: Boolean = true, inferSchema: Boolean = true):DataFrame= spark.read.option("header", header).option("inferSchema", inferSchema).csv("s3n://[aws_key]:[aws_secrete]@"+bucket+"/"+fileName)
     def zeppelinVisualize(dataDF:DataFrame):String = {
       var chart = ("%table "+dataDF.columns.mkString("\t")+"\n")
       dataDF.collect().foreach(x=>chart = chart.concat(x.mkString("\t")+"\n"))
