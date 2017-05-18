@@ -16,6 +16,12 @@ object CustomLibrary{
 
   val spark = SparkSession.builder().appName("CustomLibraryPackage").config("spark.master", "local").getOrCreate()
 
+  //Here I assume you already have AWS credential setup in someway, such as core-site.xml
+  //if you do not have AWS credential setup, uncomment following two lines and fill in your own aws user Access Key and secrete
+
+  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", "[your own access key]")
+  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", "[your own access secrete]")
+
   trait PrepareData[T,X]{
     def getAndApplyMetaData(meta: T): X
     def toDF():DataFrame
@@ -41,7 +47,7 @@ object CustomLibrary{
   }
 
   object Util{
-    def getS3file(bucket: String, fileName: String, header: Boolean = true, inferSchema: Boolean = true):DataFrame= spark.read.option("header", header).option("inferSchema", inferSchema).csv("s3n://[aws_key]:[aws_secrete]@"+bucket+"/"+fileName)
+    def getS3file(bucket: String, fileName: String, header: Boolean = true, inferSchema: Boolean = true):DataFrame= spark.read.option("header", header).option("inferSchema", inferSchema).csv("s3n://"+bucket+"/"+fileName)
     def zeppelinVisualize(dataDF:DataFrame):String = {
       var chart = ("%table "+dataDF.columns.mkString("\t")+"\n")
       dataDF.collect().foreach(x=>chart = chart.concat(x.mkString("\t")+"\n"))
