@@ -9,7 +9,7 @@ import org.scalatest.FunSuite
 
 class CustomSparkLibraryTest extends FunSuite{
 
-  val prepareData = PrepareDataFromS3().setBucket("snowf0xrawdata")
+  val prepareData = PrepareDataFromS3().setOption(value = "snowf0xrawdata")
   val fp = prepareData.getFileAsPackage("table.csv")
   val prepareDataDF = prepareData.getFileAsDF("table.csv")
 
@@ -27,7 +27,7 @@ class CustomSparkLibraryTest extends FunSuite{
   }
 
   test("zeppelin chart print"){
-    assert(Util.zeppelinVisualize(prepareDataDF).split('\n')(0)=="%table Date\tOpen\tHigh\tLow\tClose\tVolume\tAdj Close")
+    assert(LibraryUtil.zeppelinVisualize(prepareDataDF).split('\n')(0)=="%table Date\tOpen\tHigh\tLow\tClose\tVolume\tAdj Close")
   }
 
   test("amazon s3 mapper"){

@@ -19,21 +19,25 @@
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.library.version}</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-sql_${scala.library.version}</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.scalactic</groupId>
             <artifactId>scalactic_${scala.library.version}</artifactId>
             <version>${scala.test.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.library.version}</artifactId>
             <version>${scala.test.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
