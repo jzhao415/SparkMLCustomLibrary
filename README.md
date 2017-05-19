@@ -19,23 +19,23 @@ Usage:
 
 1. quick retrieve a csv file with file name, using default s3 bucket in code
 ```scala
-val preparedData: DataFrame = PrepareDataFromS3("S3_file_name").toDF() 
+val preparedData: DataFrame = PrepareDataFromS3().getFileAsDF("table.csv")
 ```
 
 2. retrieve a csv file from a specific bucket, using filename and bucket name
 ```scala
-val preparedData: DataFrame = PrepareDataFromS3(fileName="S3_file_name", bucket="bucket_name").toDF() //use specific s3 bucket
+val preparedData: DataFrame = PrepareDataFromS3().setBucket("snowf0xrawdata").getFileAsDF("table.csv")
 ```
 
 3. retrieve a csv file from S3, apply new meta data
 ```scala
-val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name).getAndApplyMeta("new meta data")
+val filePackage: FilePackage = PrepareDataFromS3().setBucket("snowf0xrawdata").getFileAsPackage("table.csv")
 ```
 
 4. in zeppelin
 ```scala
-val prepareData:PrepareDataFromS3 = PrepareDataFromS3("S3_file_name)
-prepareData.zeppelinChart()
+val filePackage:FilePackage =PrepareDataFromS3().setBucket("snowf0xrawdata").getFileAsPackage("table.csv")
+filePackage.showZeppelinChart()
 ```
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart1.PNG)
 ![alt text](https://github.com/snowf0x/SparkMLCustomLibrary/blob/master/resource/readme_image_chart2.PNG)
