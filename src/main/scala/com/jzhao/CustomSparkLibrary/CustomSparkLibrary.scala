@@ -3,7 +3,12 @@ package com.jzhao.CustomSparkLibrary
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.SparkSession
 import java.sql.Timestamp
-import java.util.Calendar;
+import java.util.Calendar
+
+import com.amazonaws.services.s3.{AmazonS3}
+import com.amazonaws.services.s3.model.{ObjectListing, S3ObjectSummary}
+
+import scala.collection.JavaConversions.collectionAsScalaIterable
 
 object CustomLibrary{
 
@@ -19,8 +24,8 @@ object CustomLibrary{
   //Here I assume you already have AWS credential setup in someway, such as core-site.xml
   //if you do not have AWS credential setup, uncomment following two lines and fill in your own aws user Access Key and secrete
 
-  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", "[your own access key]")
-  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", "[your own access secrete]")
+  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", "[your access key]")
+  //spark.sparkContext.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", "[your access secrete]")
 
   trait PrepareData[T,X]{
     def getAndApplyMetaData(meta: T): X
@@ -47,7 +52,20 @@ object CustomLibrary{
   }
 
   object Util{
+
+    def listS3files[T](s3: AmazonS3, bucket: String, prefix: String)(f: (S3ObjectSummary) => T) = {
+      def scan(acc: List[T], listing: ObjectListing): List[T] = {
+        val summaries = collectionAsScalaIterable[S3ObjectSummary](listing.getObjectSummaries())
+        val mapped = (for (summary <- summaries) yield f(summary)).toList
+
+        if(!listing.isTruncated) mapped
+        else scan(acc ::: mapped, s3.listNextBatchOfObjects(listing))
+      }
+      scan(List(),s3.listObjects(bucket, prefix))
+    }
+
     def getS3file(bucket: String, fileName: String, header: Boolean = true, inferSchema: Boolean = true):DataFrame= spark.read.option("header", header).option("inferSchema", inferSchema).csv("s3n://"+bucket+"/"+fileName)
+
     def zeppelinVisualize(dataDF:DataFrame):String = {
       var chart = ("%table "+dataDF.columns.mkString("\t")+"\n")
       dataDF.collect().foreach(x=>chart = chart.concat(x.mkString("\t")+"\n"))

@@ -4,6 +4,7 @@ package com.jzhao.CustomSparkLibrary
   * Created by jzhao on 5/17/2017.
   */
 
+import com.amazonaws.auth.{EnvironmentVariableCredentialsProvider}
 import com.jzhao.CustomSparkLibrary.CustomLibrary._
 import org.scalatest.FunSuite
 
@@ -34,5 +35,15 @@ class CustomSparkLibraryTest extends FunSuite{
   }
   test("data with bucket row count"){
     assert(prepareDataWithBucket.toDF().count() == 11338)
+  }
+
+  test("amazon s3 mapper"){
+    import com.amazonaws.services.s3.AmazonS3ClientBuilder
+
+    val s3Client = AmazonS3ClientBuilder.standard.withCredentials(new EnvironmentVariableCredentialsProvider()).withRegion("us-west-2").build
+
+    val fileOwnerTuples = Util.listS3files(s3Client,"snowf0xrawdata","t")(s => (s.getKey, s.getOwner))
+
+    assert(fileOwnerTuples(0)._1 == "table.csv")
   }
 }
